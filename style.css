@@ -185,9 +185,17 @@ ul{ margin:0; padding:0; list-style:none; }
   padding-bottom:56px;
 }
 .hero-eyebrow{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  column-gap:.4em;
+  row-gap:4px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(20px, 2.7vw, 28px);
+  line-height:1.2;
   color:#DFAE85;
-  font-size:14.5px;
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
 .hero h1{
   font-size:clamp(32px, 4.4vw, 50px);
@@ -213,7 +221,22 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 .hero-badge svg{ width:18px; height:18px; flex:none; color:var(--copper); }
 .hero-art{ position:relative; }
-.hero-art svg{ width:100%; height:auto; }
+.hero-art-inner{
+  position:relative;
+  width:100%;
+  aspect-ratio:420 / 460;
+}
+.hero-art-frame{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+}
+.appliance-layer{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  opacity:0;
+  transition:opacity .6s ease;
+}
+.appliance-layer.is-active{ opacity:1; }
 
 /* ---------- Sections ---------- */
 section{ padding:72px 0; }
@@ -330,8 +353,21 @@ section{ padding:72px 0; }
   display:flex; flex-direction:column; gap:16px;
 }
 .testi-card p{ font-size:15.5px; color:var(--ink); margin:0; }
-.testi-name{ font-size:14px; color:var(--ink-soft); font-weight:600; }
-.testi-stars{ color:var(--copper); font-size:15px; letter-spacing:2px; }
+.testi-stars{
+  color:var(--copper);
+  font-size:26px;
+  letter-spacing:4px;
+  line-height:1;
+  text-shadow:0 1px 0 rgba(193,101,47,0.15);
+}
+.testi-person{
+  display:flex; align-items:center; gap:12px;
+  margin-top:auto; padding-top:6px;
+  border-top:1px solid var(--line-soft);
+}
+.testi-avatar{ width:46px; height:46px; flex:none; border-radius:50%; }
+.testi-name{ font-size:14.5px; color:var(--ink); font-weight:600; }
+.testi-loc{ font-size:12.5px; color:var(--ink-soft); }
 
 /* ---------- FAQ ---------- */
 .faq{ max-width:820px; }
@@ -387,12 +423,10 @@ section{ padding:72px 0; }
 .rotator{
   position:relative;
   display:inline-block;
-  min-width:13ch;
-  height:1.3em;
-  vertical-align:bottom;
+  min-width:10.5em;
+  height:1.2em;
   overflow:hidden;
   color:var(--copper);
-  font-weight:600;
   text-align:left;
 }
 .rotator-word{
@@ -640,7 +674,6 @@ section{ padding:72px 0; }
   .hero-actions{ flex-direction:column; align-items:stretch; }
   .hero-actions .btn{ width:100%; }
   .hero-badges{ gap:10px 16px; }
-  .rotator{ min-width:11ch; }
   section{ padding:40px 0; }
   .section-head h2{ font-size:24px; }
   .section-head p{ font-size:15.5px; }

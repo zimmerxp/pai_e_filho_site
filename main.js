@@ -17,25 +17,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Troca animada de aparelhos no hero ("Conserto de geladeira / fogão / ...")
-  document.querySelectorAll('.rotator').forEach(function (rot) {
-    var words = rot.querySelectorAll('.rotator-word');
-    if (!words.length) return;
-    var i = 0;
+  // Hero: troca do texto ("Conserto de geladeira / fogão / ...") sincronizada
+  // com a ilustração do aparelho correspondente
+  var words = document.querySelectorAll('.rotator-word');
+  var layers = document.querySelectorAll('.appliance-layer');
+  if (words.length) {
+    var heroIndex = 0;
     words[0].classList.add('is-active');
     setInterval(function () {
-      var current = words[i];
-      var nextIndex = (i + 1) % words.length;
-      var next = words[nextIndex];
-      current.classList.remove('is-active');
-      current.classList.add('is-leaving');
-      next.classList.add('is-active');
+      var nextIndex = (heroIndex + 1) % words.length;
+      var currentWord = words[heroIndex];
+      var nextWord = words[nextIndex];
+
+      currentWord.classList.remove('is-active');
+      currentWord.classList.add('is-leaving');
+      nextWord.classList.add('is-active');
       setTimeout(function () {
-        current.classList.remove('is-leaving');
+        currentWord.classList.remove('is-leaving');
       }, 500);
-      i = nextIndex;
-    }, 2400);
-  });
+
+      if (layers.length === words.length) {
+        layers[heroIndex].classList.remove('is-active');
+        layers[nextIndex].classList.add('is-active');
+      }
+
+      heroIndex = nextIndex;
+    }, 2600);
+  }
 
   // Ano corrente no rodapé
   document.querySelectorAll('[data-year]').forEach(function (el) {

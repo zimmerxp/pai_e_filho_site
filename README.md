@@ -1,8 +1,8 @@
 # Site Pai e Filho — novo site
 
-Site estático (HTML/CSS/JS puro, sem dependências de build), pronto para hospedar em qualquer lugar — inclusive GitHub Pages, como seus outros projetos.
+Site estático (HTML/CSS/JS puro, sem dependências de build). Hoje publicado só no GitHub Pages, sem domínio próprio ainda (isso foi removido de propósito — ver seção abaixo).
 
-## Estrutura
+## Estrutura (tudo na raiz, sem pastas)
 ```
 index.html        → página inicial
 servicos.html      → detalhe de cada tipo de conserto (bom para SEO por palavra-chave)
@@ -10,29 +10,37 @@ sobre.html         → confiança / história
 contato.html       → formulário que abre o WhatsApp já preenchido + mapa
 blog.html          → conteúdo original (ajuda no SEO e na aprovação do AdSense)
 privacidade.html   → política de privacidade (exigida pelo AdSense e pela LGPD)
-css/style.css      → todo o visual
-js/main.js         → menu mobile, banner de cookies, formulário → WhatsApp
-robots.txt         → libera indexação e aponta o sitemap
-sitemap.xml        → mapa do site para o Google
-ads.txt            → placeholder, precisa do seu Publisher ID real
+style.css          → todo o visual
+main.js            → menu mobile, banner de cookies, formulário → WhatsApp, animação do hero
+robots.txt         → libera indexação para os buscadores
+ads.txt            → placeholder, precisa do seu Publisher ID real quando ativar o AdSense
 ```
 
-## O que já está pronto para SEO
-- Cada página tem `title`, `meta description`, `canonical` e Open Graph próprios.
-- Dados estruturados (schema.org): `LocalBusiness`, `FAQPage` e `BreadcrumbList` em JSON-LD.
-- HTML semântico (`h1` único por página, `main`, `nav`, `footer`).
-- `robots.txt` + `sitemap.xml`.
-- Site rápido: sem frameworks pesados, fontes carregadas via `preconnect`.
-- Totalmente responsivo (testar de 360px a desktop).
+## Sobre o domínio próprio (removido por enquanto)
+A pedido, tirei tudo que apontava para `assistenciatecnicapaiefilho.com`, já que por enquanto o site vai ficar só no endereço do GitHub Pages:
+- Removidos: arquivo `CNAME`, `sitemap.xml`, as tags `<link rel="canonical">` e `<meta property="og:url">` de todas as páginas, e o bloco de dados estruturados `BreadcrumbList` (dependia do domínio).
+- Mantidos intactos: `title`, `meta description`, Open Graph (título/descrição/tipo), dados estruturados `LocalBusiness` e `FAQPage` — nada disso depende do domínio.
 
-## O que você precisa preencher antes de publicar
-1. **AdSense**: crie a conta em https://www.google.com/adsense, cole o script de verificação no `<head>` de cada página (já deixei o comentário indicando o local) e troque `ca-pub-XXXXXXXXXXXXXXXX` pelo seu ID nos blocos `<!-- Espaço reservado... -->`.
-2. **ads.txt**: troque o conteúdo de `ads.txt` pelo valor exato mostrado no painel do AdSense.
-3. **Depoimentos**: os 3 depoimentos da home são placeholders (marcados com comentário `ATENÇÃO`) — troque por relatos reais de clientes. O AdSense e o Google não toleram depoimentos falsos apresentados como reais.
-4. **Fotos reais**: hoje a identidade visual usa ilustração vetorial (sem fotos). Se quiser, posso adicionar fotos reais da equipe/atendimentos depois — ajuda tanto na conversão quanto na confiança do visitante.
-5. **Google Search Console**: depois de publicar, cadastre o domínio, envie o `sitemap.xml` e confirme a propriedade (pode usar a mesma verificação do Wix atual, se quiser manter o histórico).
-6. **Mapa**: o iframe do Google Maps em `contato.html` está usando uma busca genérica por "Belo Horizonte" — se quiser, troque pelo endereço exato do ponto de atendimento.
+**Quando for apontar o domínio de novo**, é só:
+1. Recriar o arquivo `CNAME` na raiz com o domínio (`www.assistenciatecnicapaiefilho.com`).
+2. Adicionar de volta `<link rel="canonical" href="...">` e `<meta property="og:url" content="...">` em cada página, com a URL final de cada uma.
+3. Recriar o `sitemap.xml` e referenciá-lo no `robots.txt` (`Sitemap: https://.../sitemap.xml`).
+4. Posso fazer tudo isso de novo rapidinho quando você avisar — é só pedir.
+
+## O que já está pronto para SEO
+- `title` e `meta description` únicos por página.
+- Dados estruturados (schema.org): `LocalBusiness` e `FAQPage` em JSON-LD.
+- HTML semântico (`h1` único por página, `main`, `nav`, `footer`).
+- Site rápido: sem frameworks pesados, fontes carregadas via `preconnect`.
+- Totalmente responsivo, com ajustes específicos para celular (a maior parte do tráfego).
+
+## O que falta antes de publicar "pra valer"
+1. **AdSense**: os espaços de anúncio foram removidos por enquanto. Quando for ativar, me avise que eu volto a incluir os blocos e o script de verificação.
+2. **ads.txt**: troque o conteúdo pelo valor exato mostrado no painel do AdSense, quando ativar.
+3. **Depoimentos**: os 3 depoimentos da home são placeholders com avatar ilustrado (não é foto real de ninguém, de propósito) — troque por relatos e fotos reais de clientes antes de publicar oficialmente. Depoimentos falsos apresentados como reais violam as políticas do Google.
+4. **Mapa**: os iframes do Google Maps (`contato.html` e a seção de área de atendimento em `index.html`) usam uma busca genérica por "Belo Horizonte" — troque pelo endereço exato quando quiser.
+5. **Google Search Console**: quando o domínio final estiver decidido, cadastre a propriedade e envie o sitemap (depois de recriá-lo).
 
 ## Como publicar
-- **GitHub Pages** (mesmo modelo do seu projeto `gestao_paiefilho`): suba esta pasta para um repositório e ative o Pages nas configurações.
-- **Domínio atual**: aponte `www.assistenciatecnicapaiefilho.com` para o novo host e mantenha o domínio — isso preserva todo o SEO já construído.
+- **GitHub Pages**: suba os arquivos (sem subpastas) para a raiz do repositório e ative o Pages em Settings > Pages, branch `main`, pasta `/ (root)`.
+- Sem domínio customizado por enquanto — o site fica em `seu-usuario.github.io/nome-do-repo/`.
