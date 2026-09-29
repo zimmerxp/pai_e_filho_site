@@ -17,6 +17,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Troca animada de aparelhos no hero ("Conserto de geladeira / fogão / ...")
+  document.querySelectorAll('.rotator').forEach(function (rot) {
+    var words = rot.querySelectorAll('.rotator-word');
+    if (!words.length) return;
+    var i = 0;
+    words[0].classList.add('is-active');
+    setInterval(function () {
+      var current = words[i];
+      var nextIndex = (i + 1) % words.length;
+      var next = words[nextIndex];
+      current.classList.remove('is-active');
+      current.classList.add('is-leaving');
+      next.classList.add('is-active');
+      setTimeout(function () {
+        current.classList.remove('is-leaving');
+      }, 500);
+      i = nextIndex;
+    }, 2400);
+  });
+
   // Ano corrente no rodapé
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
