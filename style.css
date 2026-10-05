@@ -182,8 +182,8 @@ ul{ margin:0; padding:0; list-style:none; }
   grid-template-columns:1.05fr 0.95fr;
   gap:48px;
   align-items:center;
-  padding-top:64px;
-  padding-bottom:56px;
+  padding-top:32px;
+  padding-bottom:48px;
 }
 .hero-eyebrow{
   display:flex;
@@ -221,15 +221,11 @@ ul{ margin:0; padding:0; list-style:none; }
   font-size:14px; color:#CFE0D9;
 }
 .hero-badge svg{ width:18px; height:18px; flex:none; color:var(--copper); }
-.hero-art{ position:relative; }
+.hero-art{ position:relative; width:100%; max-width:340px; justify-self:center; }
 .hero-art-inner{
   position:relative;
   width:100%;
-  aspect-ratio:420 / 460;
-}
-.hero-art-frame{
-  position:absolute; inset:0;
-  width:100%; height:100%;
+  aspect-ratio:260 / 380;
 }
 .appliance-layer{
   position:absolute; inset:0;
