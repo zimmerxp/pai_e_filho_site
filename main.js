@@ -8,10 +8,12 @@ document.addEventListener('DOMContentLoaded', function () {
     toggle.addEventListener('click', function () {
       var open = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('nav-open', open);
     });
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         nav.classList.remove('open');
+        document.body.classList.remove('nav-open');
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
@@ -43,6 +45,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
       heroIndex = nextIndex;
     }, 2600);
+  }
+
+  // Mobile: cabeçalho some ao rolar para baixo e volta ao rolar para cima
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var lastY = window.pageYOffset;
+    window.addEventListener('scroll', function () {
+      var y = window.pageYOffset;
+      var menuOpen = nav && nav.classList.contains('open');
+      if (window.innerWidth <= 720 && !menuOpen && y > 80 && y > lastY + 4) {
+        header.classList.add('is-hidden');
+      } else if (y < lastY - 4 || y <= 80) {
+        header.classList.remove('is-hidden');
+      }
+      lastY = y;
+    }, { passive: true });
   }
 
   // Ano corrente no rodapé
