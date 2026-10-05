@@ -706,8 +706,7 @@ section{ padding:72px 0; }
   .site-header{ transition:transform .25s ease; }
   .site-header.is-hidden{ transform:translateY(-100%); }
   .nav-wrap{ padding:10px 0; }
-  .brand-mark{ width:34px; height:34px; }
-  .brand-text{ font-size:17px; }
+  .brand-logo{ height:34px; width:auto; }
   .main-nav{ inset:55px 0 0 0; }
   body.nav-open{ overflow:hidden; }
 
@@ -780,3 +779,20 @@ section{ padding:72px 0; }
   .footer-grid > div:nth-child(2), .footer-grid > div:nth-child(3){ display:none; }
   .footer-brand p{ display:none; }
 }
+
+/* ---------- Logo ---------- */
+.brand-logo{ height:44px; width:auto; display:block; }
+.footer-logo{ height:50px; width:auto; display:block; margin-bottom:12px; }
+
+/* ---------- Mapa de atendimento (Leaflet) ---------- */
+.area-map, .map-frame{ position:relative; z-index:0; isolation:isolate; background:var(--bg-soft); }
+.area-label{
+  background:transparent; border:0; box-shadow:none;
+  font:600 12px/1 var(--font-body); color:var(--teal-dark);
+  text-shadow:0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
+  padding:0;
+}
+.area-label::before{ display:none; }
+.map-legend{ font-size:13px; color:var(--ink-soft); margin:10px 0 0; max-width:none; }
+.map-legend i{ display:inline-block; width:10px; height:10px; border-radius:50%; margin:0 4px 0 10px; vertical-align:baseline; }
+.map-legend i:first-child{ margin-left:0; }

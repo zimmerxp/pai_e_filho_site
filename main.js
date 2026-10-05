@@ -63,6 +63,55 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { passive: true });
   }
 
+  // Mapa de atendimento: destaca todas as regiões atendidas
+  var mapEl = document.querySelector('[data-area-map]');
+  if (mapEl && window.L) {
+    var AREAS = [
+      { n: 'Belo Horizonte', c: [-19.9167, -43.9345], r: 12000, main: true },
+      { n: 'Contagem', c: [-19.9319, -44.0539], r: 5500 },
+      { n: 'Betim', c: [-19.9668, -44.1983], r: 7000 },
+      { n: 'Nova Lima', c: [-19.9855, -43.8469], r: 6000 },
+      { n: 'Sabará', c: [-19.8851, -43.8058], r: 5500 },
+      { n: 'Santa Luzia', c: [-19.7697, -43.8514], r: 6000 },
+      { n: 'Vespasiano', c: [-19.6919, -43.9231], r: 5500 }
+    ];
+    var startMap = function () {
+      if (mapEl._started) return;
+      mapEl._started = true;
+      var touch = L.Browser.mobile;
+      var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !touch, tap: false });
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+      var group = [];
+      var showLabels = window.innerWidth > 720;
+      AREAS.forEach(function (a) {
+        var circle = L.circle(a.c, {
+          radius: a.r,
+          color: a.main ? '#14433C' : '#C1652F',
+          weight: 2,
+          fillColor: a.main ? '#14433C' : '#C1652F',
+          fillOpacity: a.main ? 0.14 : 0.3
+        }).addTo(map);
+        circle.bindTooltip(a.n, {
+          permanent: showLabels || a.main,
+          direction: 'center',
+          className: 'area-label'
+        });
+        group.push(circle);
+      });
+      map.fitBounds(L.featureGroup(group).getBounds(), { padding: [10, 10] });
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries, obs) {
+        if (entries[0].isIntersecting) { startMap(); obs.disconnect(); }
+      }, { rootMargin: '200px' }).observe(mapEl);
+    } else {
+      startMap();
+    }
+  }
+
   // Ano corrente no rodapé
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
