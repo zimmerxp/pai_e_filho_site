@@ -1,4 +1,18 @@
 // Assistência Técnica Pai e Filho — comportamento do site
+window.dataLayer = window.dataLayer || [];
+
+// Eventos de conversão para o Google Tag Manager
+document.addEventListener('click', function (e) {
+  var a = e.target.closest ? e.target.closest('a[href]') : null;
+  if (!a) return;
+  var href = a.getAttribute('href') || '';
+  if (href.indexOf('wa.me') > -1) {
+    window.dataLayer.push({ event: 'click_whatsapp', link_url: href, pagina: location.pathname });
+  } else if (href.indexOf('tel:') === 0) {
+    window.dataLayer.push({ event: 'click_telefone', link_url: href, pagina: location.pathname });
+  }
+});
+
 document.addEventListener('DOMContentLoaded', function () {
 
   // Menu mobile
@@ -153,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
         (bairro ? ' (bairro: ' + bairro + ')' : '') +
         (mensagem ? '. Detalhes: ' + mensagem : '') + '.';
 
+      window.dataLayer.push({ event: 'envio_formulario', aparelho: aparelho, pagina: location.pathname });
       var url = 'https://wa.me/5531991248002?text=' + encodeURIComponent(texto);
       window.open(url, '_blank', 'noopener');
     });
