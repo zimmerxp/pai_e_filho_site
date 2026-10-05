@@ -12,20 +12,21 @@ blog.html          → conteúdo original (ajuda no SEO e na aprovação do AdSe
 privacidade.html   → política de privacidade (exigida pelo AdSense e pela LGPD)
 style.css          → todo o visual
 main.js            → menu mobile, banner de cookies, formulário → WhatsApp, animação do hero
-robots.txt         → libera indexação para os buscadores
+robots.txt         → libera indexação e aponta o sitemap
+sitemap.xml        → mapa do site para o Google
+CNAME              → domínio próprio no GitHub Pages
 ads.txt            → placeholder, precisa do seu Publisher ID real quando ativar o AdSense
 ```
 
-## Sobre o domínio próprio (removido por enquanto)
-A pedido, tirei tudo que apontava para `assistenciatecnicapaiefilho.com`, já que por enquanto o site vai ficar só no endereço do GitHub Pages:
-- Removidos: arquivo `CNAME`, `sitemap.xml`, as tags `<link rel="canonical">` e `<meta property="og:url">` de todas as páginas, e o bloco de dados estruturados `BreadcrumbList` (dependia do domínio).
-- Mantidos intactos: `title`, `meta description`, Open Graph (título/descrição/tipo), dados estruturados `LocalBusiness` e `FAQPage` — nada disso depende do domínio.
+## Domínio próprio
+O site está configurado para `www.assistenciatecnicapaiefilho.com`:
+- Arquivo `CNAME` na raiz (o GitHub Pages usa para reconhecer o domínio).
+- `canonical` e `og:url` em todas as páginas, `BreadcrumbList` e `url` no schema `LocalBusiness`.
+- `sitemap.xml` e referência a ele no `robots.txt`.
 
-**Quando for apontar o domínio de novo**, é só:
-1. Recriar o arquivo `CNAME` na raiz com o domínio (`www.assistenciatecnicapaiefilho.com`).
-2. Adicionar de volta `<link rel="canonical" href="...">` e `<meta property="og:url" content="...">` em cada página, com a URL final de cada uma.
-3. Recriar o `sitemap.xml` e referenciá-lo no `robots.txt` (`Sitemap: https://.../sitemap.xml`).
-4. Posso fazer tudo isso de novo rapidinho quando você avisar — é só pedir.
+DNS (já configurado no Wix): 4 registros A para 185.199.108.153, .109.153, .110.153 e .111.153, e CNAME `www` para `zimmerxp.github.io`.
+Depois de propagar: Settings > Pages > Custom domain > `www.assistenciatecnicapaiefilho.com` e marcar Enforce HTTPS.
+Depois, cadastre o domínio no Google Search Console e envie o `sitemap.xml`.
 
 ## O que já está pronto para SEO
 - `title` e `meta description` únicos por página.
