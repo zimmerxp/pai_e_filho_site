@@ -94,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
       mapEl._started = true;
       var touch = L.Browser.mobile;
       var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !touch, tap: false });
+      map.setView([-19.9167, -43.9345], 10);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 17,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
-      var group = [];
+      var bounds = L.latLngBounds([]);
       var showLabels = window.innerWidth > 720;
       AREAS.forEach(function (a) {
         var circle = L.circle(a.c, {
@@ -113,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
           direction: 'center',
           className: 'area-label'
         });
-        group.push(circle);
+        bounds.extend(L.latLng(a.c[0], a.c[1]).toBounds(a.r * 2));
       });
-      map.fitBounds(L.featureGroup(group).getBounds(), { padding: [10, 10] });
+      map.fitBounds(bounds, { padding: [10, 10] });
     };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries, obs) {
