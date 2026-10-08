@@ -79,6 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Mapa de atendimento: destaca todas as regiões atendidas
   var mapEl = document.querySelector('[data-area-map]');
+  var mapFallback = function () {
+    if (!mapEl || mapEl._started) return;
+    mapEl._started = true;
+    mapEl.innerHTML = '<iframe title="Mapa de Belo Horizonte e região" loading="lazy" style="border:0;width:100%;height:100%" src="https://www.google.com/maps?q=Belo+Horizonte,+MG&z=10&output=embed"></iframe>';
+  };
+  if (mapEl && !window.L) { mapFallback(); }
   if (mapEl && window.L) {
     var AREAS = [
       { n: 'Belo Horizonte', c: [-19.9167, -43.9345], r: 12000, main: true },
@@ -92,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var startMap = function () {
       if (mapEl._started) return;
       mapEl._started = true;
+      try {
       var touch = L.Browser.mobile;
       var map = L.map(mapEl, { scrollWheelZoom: false, dragging: !touch, tap: false });
       map.setView([-19.9167, -43.9345], 10);
@@ -117,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         bounds.extend(L.latLng(a.c[0], a.c[1]).toBounds(a.r * 2));
       });
       map.fitBounds(bounds, { padding: [10, 10] });
+      } catch (err) { mapEl._started = false; mapFallback(); }
     };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries, obs) {

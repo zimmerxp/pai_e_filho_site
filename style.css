@@ -821,3 +821,24 @@ section{ padding:72px 0; }
   .cookie-bar{ bottom:calc(66px + env(safe-area-inset-bottom, 0px)); }
   body.nav-open .mobile-bar{ display:none; }
 }
+
+/* Hero mobile: texto à esquerda, aparelho à direita, sem sobreposição */
+@media (max-width: 720px){
+  .hero .container{
+    display:grid;
+    grid-template-columns:1fr 78px;
+    column-gap:12px;
+    align-items:start;
+  }
+  .hero-copy{ display:contents; }
+  .hero-eyebrow{ grid-column:1; grid-row:1; padding-right:0; }
+  .hero h1{ grid-column:1; grid-row:2; padding-right:0; }
+  .hero-art{
+    position:relative; right:auto; top:auto;
+    grid-column:2; grid-row:1 / span 2;
+    width:78px; max-width:78px; margin:0;
+    align-self:start;
+  }
+  .hero-lede{ grid-column:1 / -1; grid-row:3; margin-top:6px; }
+  .hero-actions{ grid-column:1 / -1; grid-row:4; }
+}
